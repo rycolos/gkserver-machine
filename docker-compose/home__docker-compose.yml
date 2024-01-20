@@ -1,1 +1,23 @@
 version: "3.8"
+
+services:
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    network_mode: host
+    volumes:
+      - ${DATA_DIR}/homeassistant:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    privileged: true
+
+  homebridge:
+    image: oznu/homebridge:ubuntu
+    container_name: homebridge
+    restart: always
+    network_mode: host
+    environment:
+      - HOMEBRIDGE_CONFIG_UI_PORT=8581
+      - HOMEBRIDGE_CONFIG_UI=1
+    volumes:
+      - ${DATA_DIR}/homebridge:/homebridge

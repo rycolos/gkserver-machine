@@ -1,1 +1,38 @@
 version: "3.8"
+
+services:
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "9080:80/tcp"
+    environment:
+      TZ: 'America/New_York'
+      WEBPASSWORD: '${PIHOLE_PW}'
+      DNSMASQ_LISTENING: 'all'
+      PIHOLE_DNS_: '9.9.9.9;149.112.112.112' #quad9
+      FTLCONF_LOCAL_IPV4: '192.168.1.87'
+      DNSSEC: 'true'
+    volumes:
+      - '${DATA_DIR}/etc-pihole:/etc/pihole'
+      - '${DATA_DIR}/etc-dnsmasq.d:/etc/dnsmasq.d'
+    restart: unless-stopped
+  
+  speedtest:
+    container_name: speedtest
+    image: henrywhitaker3/speedtest-tracker
+    ports:
+      - '8765:80'
+    volumes:
+      - "${DATA_DIR}/speedtest/config:/config"
+    environment:
+      TZ: 'America/New_York'
+      OOKLA_EULA_GDPR: 'true'
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "10"
+        max-size: "200k"
+    restart: unless-stopped
