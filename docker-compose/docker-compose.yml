@@ -1,0 +1,207 @@
+version: "3.8"
+
+volumes:
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+  portainer_data:
+    driver: local
+
+services:
+  speedtest:
+    container_name: speedtest
+    image: henrywhitaker3/speedtest-tracker
+    ports:
+      - '8765:80'
+    volumes:
+      - "${DATA_DIR}/speedtest/config:/config"
+    environment:
+      TZ: 'America/New_York'
+      OOKLA_EULA_GDPR: 'true'
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "10"
+        max-size: "200k"
+    restart: unless-stopped
+
+  portainer:
+    image: portainer/portainer-ce:alpine
+    container_name: portainer
+    command: -H unix:///var/run/docker.sock
+    ports:
+      - "9000:9000"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "${DATA_DIR}/portainer_data:/data"
+    restart: always
+
+  pihole:
+    container_name: pihole
+    image: pihole/pihole:latest
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "9080:80/tcp"
+    environment:
+      TZ: 'America/New_York'
+      WEBPASSWORD: '${PIHOLE_PW}'
+      DNSMASQ_LISTENING: 'all'
+      PIHOLE_DNS_: '9.9.9.9;149.112.112.112' #quad9
+      FTLCONF_LOCAL_IPV4: '192.168.1.87'
+      DNSSEC: 'true'
+    volumes:
+      - '${DATA_DIR}/etc-pihole:/etc/pihole'
+      - '${DATA_DIR}/etc-dnsmasq.d:/etc/dnsmasq.d'
+    restart: unless-stopped
+
+  plex:
+    image: linuxserver/plex:latest
+    container_name: plex
+    network_mode: host
+    environment:
+      - TZ=America/New_York
+      - PUID=1000
+      - PGID=1000
+      - VERSION=docker
+    volumes:
+      - /media/plex_library/:/config
+      - /media/plex_library/music/:/music
+      - /media/plex_library/tv/:/tv
+      - /media/plex_library/movies/:/movies
+    restart: unless-stopped
+
+  syncthing:
+    image: linuxserver/syncthing:latest
+    container_name: syncthing
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - ${DATA_DIR}/syncthing/config:/config
+      - /media/backup_main/ryan_mba_documents:/ryan_mba_documents
+      - /media/backup_main/ryan_mba_desktop:/ryan_mba_desktop
+      - /media/backup_main/ryan_gaming_pc:/ryan_gaming_pc
+    ports:
+      - "8384:8384"
+      - "22000:22000/tcp"
+      - "22000:22000/udp"
+      - "21027:21027/udp"
+    restart: unless-stopped
+
+  homebridge:
+    image: oznu/homebridge:ubuntu
+    container_name: homebridge
+    restart: always
+    network_mode: host
+    environment:
+      - HOMEBRIDGE_CONFIG_UI_PORT=8581
+      - HOMEBRIDGE_CONFIG_UI=1
+    volumes:
+      - ${DATA_DIR}/homebridge:/homebridge
+  
+  wireguard:
+    image: linuxserver/wireguard
+    container_name: wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New York
+      - SERVERURL=auto
+      - SERVERPORT=51820
+      - PEERS=2
+      - PEERDNS=auto
+      - INTERNET_SUBNET=10.13.13.0
+    volumes:
+      - ${DATA_DIR}/wireguard/config:/config
+      - /lib/modules:/lib/modules
+    ports:
+      - "51820:51820/udp"
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1    
+    restart: unless-stopped
+
+  ftpd_server:
+    image: stilliard/pure-ftpd
+    container_name: pure-ftpd
+    ports:
+      - "21:21"
+      - "30000-30009:30000-30009"
+    volumes: 
+      - /media/backup_main/cctv:/home
+    environment:
+      FTP_USER_NAME: ${FTP_USER}
+      FTP_USER_PASS: ${FTP_PASS}
+      FTP_USER_HOME: /home
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ${DATA_DIR}/prometheus:/etc/prometheus
+      - ${DATA_DIR}/prometheus/prometheus_data:/prometheus
+    restart: unless-stopped
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    user: "472"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ${DATA_DIR}/grafana/grafana_data:/var/lib/grafana
+    restart: unless-stopped
+
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:latest
+    container_name: node_exporter
+    pid: host
+    restart: unless-stopped
+    volumes:
+      - /:/host:ro,rslave
+    command:
+      - "--path.rootfs=/host"
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:latest
+    container_name: cadvisor
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    command:
+      - "-docker_only=true"
+      - "-housekeeping_interval=15s"
+      - "-disable_metrics=disk,diskIO,network,tcp,udp,percpu,sched,process"
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx-server
+    ports:
+    - "18080:80"
+    volumes:
+    - ${DATA_DIR}/nginx/website:/usr/share/nginx/html
+
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    network_mode: host
+    volumes:
+      - ${DATA_DIR}/homeassistant:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    privileged: true

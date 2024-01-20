@@ -1,0 +1,4 @@
+.DS_Store
+.env
+discord.yaml
+docker-data/
