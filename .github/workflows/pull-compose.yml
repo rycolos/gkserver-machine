@@ -12,8 +12,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: test
-        run: echo "hi" >> ~/logs/actions.log
-        #run: git pull origin master
+        #run: echo "hi" >> ~/logs/actions.log
+        run: git pull origin main >> ~/logs/deploy-pull.log
 
   # compose:
   #   runs-on: self-hosted
