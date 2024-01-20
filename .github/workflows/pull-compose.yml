@@ -14,7 +14,7 @@ jobs:
       - name: pull
         #run: echo "hi" >> ~/logs/actions.log
         #run: git pull origin main >> ~/logs/deploy-pull.log
-        run: git pull origin main
+        run: ~/scripts/test.sh
 
   # compose:
   #   runs-on: self-hosted

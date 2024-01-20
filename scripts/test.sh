@@ -1,0 +1,1 @@
+git pull >> ~/logs/actions.log
