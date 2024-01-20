@@ -14,7 +14,7 @@ jobs:
       - name: pull2
         #run: echo "hi" >> ~/logs/actions.log
         #run: git pull origin main >> ~/logs/deploy-pull.log
-        run: ~/scripts/test.sh
+        run: ~/scripts/gkserver-machine/test.sh
 
   # compose:
   #   runs-on: self-hosted
