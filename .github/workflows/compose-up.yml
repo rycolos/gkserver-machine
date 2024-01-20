@@ -16,7 +16,7 @@ jobs:
         run: |
           cd ~/gkserver/docker-compose
           docker compose up -d --remove-orphans \
-          -f etc__docker-compose.yml
-          -f home__docker-compose.yml
-          -f media__docker-compose.yml
+          -f etc__docker-compose.yml \
+          -f home__docker-compose.yml \
+          -f media__docker-compose.yml \
           -f network__docker-compose.yml
