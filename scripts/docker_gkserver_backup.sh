@@ -9,12 +9,22 @@ echo $(date) >> $logdest
 echo "" >> $logdest
 
 #stop docker
-/usr/bin/docker compose -f /home/kepler/gkserver/docker-compose/docker-compose.yml stop
+/usr/bin/docker compose \
+    -f /home/kepler/gkserver/docker-compose/etc__docker-compose.yml \
+    -f /home/kepler/gkserver/docker-compose/home__docker-compose.yml \
+    -f /home/kepler/gkserver/docker-compose/media__docker-compose.yml \
+    -f /home/kepler/gkserver/docker-compose/network__docker-compose.yml \
+    stop
 
 rsync -avhi --delete --backup-dir=$trashdir $src1 $dest1 2>&1| tee -a $logdest
 
 #start docker
-/usr/bin/docker compose -f /home/kepler/gkserver/docker-compose/docker-compose.yml start
+/usr/bin/docker compose \
+    -f /home/kepler/gkserver/docker-compose/etc__docker-compose.yml \
+    -f /home/kepler/gkserver/docker-compose/home__docker-compose.yml \
+    -f /home/kepler/gkserver/docker-compose/media__docker-compose.yml \
+    -f /home/kepler/gkserver/docker-compose/network__docker-compose.yml \
+    start
 
 echo "" >> $logdest
 echo $(date) >> $logdest
