@@ -1,4 +1,4 @@
-name: Pull and Docker Compose
+name: Pull
 
 on:
   workflow_dispatch:
@@ -15,12 +15,4 @@ jobs:
         run: |
           cd ~/gkserver-machine
           git pull origin main
-
-  compose:
-    runs-on: self-hosted
-    steps:
-      - name: up
-        run: |
-          cd ~/gkserver-machine/docker-compose
-          docker compose up -d --remove-orphans
       

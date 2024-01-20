@@ -1,0 +1,18 @@
+name: Docker Compose Up
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docker-compose.yml'
+
+jobs:
+  compose:
+    runs-on: self-hosted
+    steps:
+      - name: up
+        run: |
+          cd ~/gkserver-machine/docker-compose
+          docker compose up -d --remove-orphans
