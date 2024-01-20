@@ -1,0 +1,18 @@
+name: Pull and Docker Compose
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  pull:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+
+  # compose:
+  #   runs-on: self-hosted
+  #   steps:
+      
