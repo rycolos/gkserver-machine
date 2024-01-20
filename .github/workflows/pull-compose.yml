@@ -16,6 +16,7 @@ jobs:
         run: |
         cd ~/gkserver-machine
         git pull origin main > ~/logs/deploy-pull.log
+        `
         #run: ~/gkserver-machine/scripts/test.sh
 
   # compose:
