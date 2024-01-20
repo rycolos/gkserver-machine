@@ -13,8 +13,10 @@ jobs:
       - uses: actions/checkout@v2
       - name: pull2
         #run: echo "hi" >> ~/logs/actions.log
-        #run: git pull origin main >> ~/logs/deploy-pull.log
-        run: ~/gkserver-machine/scripts/test.sh
+        run: |
+        cd ~/gkserver-machine
+        git pull origin main >> ~/logs/deploy-pull.log
+        #run: ~/gkserver-machine/scripts/test.sh
 
   # compose:
   #   runs-on: self-hosted
