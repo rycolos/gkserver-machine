@@ -14,5 +14,5 @@ jobs:
     steps:
       - name: up
         run: |
-          cd ~/gkserver-machine/docker-compose
+          cd ~/gkserver/docker-compose
           docker compose up -d --remove-orphans
