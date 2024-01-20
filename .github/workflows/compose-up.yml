@@ -1,4 +1,4 @@
-name: Docker Compose Up
+name: compose up
 
 on:
   workflow_dispatch:

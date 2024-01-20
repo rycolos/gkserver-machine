@@ -1,10 +1,10 @@
 version: "3.8"
 
 volumes:
-  prometheus_data:
-    driver: local
-  grafana_data:
-    driver: local
+  # prometheus_data:
+  #   driver: local
+  # grafana_data:
+  #   driver: local
   portainer_data:
     driver: local
 
@@ -72,6 +72,35 @@ services:
       - /media/plex_library/movies/:/movies
     restart: unless-stopped
 
+  nginx:
+    image: nginx:latest
+    container_name: nginx-server
+    ports:
+    - "18080:80"
+    volumes:
+    - ${DATA_DIR}/nginx/website:/usr/share/nginx/html
+
+  homeassistant:
+    container_name: homeassistant
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    network_mode: host
+    volumes:
+      - ${DATA_DIR}/homeassistant:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    privileged: true
+
+  homebridge:
+    image: oznu/homebridge:ubuntu
+    container_name: homebridge
+    restart: always
+    network_mode: host
+    environment:
+      - HOMEBRIDGE_CONFIG_UI_PORT=8581
+      - HOMEBRIDGE_CONFIG_UI=1
+    volumes:
+      - ${DATA_DIR}/homebridge:/homebridge
+
   # syncthing:
   #   image: linuxserver/syncthing:latest
   #   container_name: syncthing
@@ -90,17 +119,6 @@ services:
   #     - "22000:22000/udp"
   #     - "21027:21027/udp"
   #   restart: unless-stopped
-
-  homebridge:
-    image: oznu/homebridge:ubuntu
-    container_name: homebridge
-    restart: always
-    network_mode: host
-    environment:
-      - HOMEBRIDGE_CONFIG_UI_PORT=8581
-      - HOMEBRIDGE_CONFIG_UI=1
-    volumes:
-      - ${DATA_DIR}/homebridge:/homebridge
   
   # wireguard:
   #   image: linuxserver/wireguard
@@ -187,21 +205,3 @@ services:
   #     - "-docker_only=true"
   #     - "-housekeeping_interval=15s"
   #     - "-disable_metrics=disk,diskIO,network,tcp,udp,percpu,sched,process"
-
-  nginx:
-    image: nginx:latest
-    container_name: nginx-server
-    ports:
-    - "18080:80"
-    volumes:
-    - ${DATA_DIR}/nginx/website:/usr/share/nginx/html
-
-  homeassistant:
-    container_name: homeassistant
-    image: "ghcr.io/home-assistant/home-assistant:stable"
-    network_mode: host
-    volumes:
-      - ${DATA_DIR}/homeassistant:/config
-      - /etc/localtime:/etc/localtime:ro
-    restart: unless-stopped
-    privileged: true
