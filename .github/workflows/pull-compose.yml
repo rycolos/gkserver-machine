@@ -12,12 +12,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: pull
-        #run: echo "hi" >> ~/logs/actions.log
         run: |
           cd ~/gkserver-machine
-          git pull origin main > ~/logs/deploy-pull.log
+          git pull origin main
 
-  # compose:
-  #   runs-on: self-hosted
-  #   steps:
+  compose:
+    runs-on: self-hosted
+    steps:
+      - name: up
+        run: |
+          cd ~/gkserver-machine
+          echo "hey" > ~/logs/run.log
       
