@@ -21,6 +21,6 @@ jobs:
     steps:
       - name: up
         run: |
-          cd ~/gkserver-machine
-          echo "hey" > ~/logs/run.log
+          cd ~/gkserver-machine/docker-compose
+          docker compose up -d
       
