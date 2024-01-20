@@ -126,19 +126,19 @@ services:
   #     - net.ipv4.conf.all.src_valid_mark=1    
   #   restart: unless-stopped
 
-  ftpd_server:
-    image: stilliard/pure-ftpd
-    container_name: pure-ftpd
-    ports:
-      - "21:21"
-      - "30000-30009:30000-30009"
-    volumes: 
-      - /media/backup_main/cctv:/home
-    environment:
-      FTP_USER_NAME: ${FTP_USER}
-      FTP_USER_PASS: ${FTP_PASS}
-      FTP_USER_HOME: /home
-    restart: unless-stopped
+  # ftpd_server:
+  #   image: stilliard/pure-ftpd
+  #   container_name: pure-ftpd
+  #   ports:
+  #     - "21:21"
+  #     - "30000-30009:30000-30009"
+  #   volumes: 
+  #     - /media/backup_main/cctv:/home
+  #   environment:
+  #     FTP_USER_NAME: ${FTP_USER}
+  #     FTP_USER_PASS: ${FTP_PASS}
+  #     FTP_USER_HOME: /home
+  #   restart: unless-stopped
 
   # prometheus:
   #   image: prom/prometheus:latest
