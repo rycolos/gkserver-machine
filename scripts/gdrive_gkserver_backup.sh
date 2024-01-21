@@ -1,23 +1,5 @@
 #!/bin/bash
 
-logdest="/home/kepler/logs/external_gkserver_backup.log"
-src1="/media/backup_main"
-dest1="/media/backup2_ext"
-trashdir="/media/backup2_ext/gkserver_backup_trash/$(date +%m-%d-%Y)"
-
-echo $(date) >> $logdest
-echo "" >> $logdest
-
-rsync -avhi --delete --no-perms --no-group --no-owner \
---backup-dir=$trashdir \
-$src1 $dest1 2>&1 | tee -a $logdest
-
-echo "" >> $logdest
-echo $(date) >> $logdest
-echo "----------" >> $logdest⏎
-kepler@gkserver ~/g/scripts (main)> cat gdrive_gkserver_backup.sh
-#!/bin/bash
-
 logdest="/home/kepler/logs/gdrive_gkserver_backup.log"
 config="/home/kepler/.config/rclone/rclone.conf"
 src1="/media/backup_main/documents/"
@@ -39,7 +21,11 @@ rclone sync $src1 $dest1 \
 #home dir
 rclone sync $src2 $dest2 \
 --config=$config \
---progress --delete-excluded --backup-dir $trashdir 2>&1 | tee -a $logdest
+--progress --delete-excluded --backup-dir $trashdir --exclude="/.ssh/**" 2>&1 | tee -a $logdest
+
+# rclone sync /media/backup_main/gkserver_home/ drive:backup_gkserver/home/ \
+# --config=/home/kepler/.config/rclone/rclone.conf \
+# --progress --delete-excluded --exclude="/.ssh/**" --dry-run
 
 #plex library
 rclone sync $src3 $dest3 \
