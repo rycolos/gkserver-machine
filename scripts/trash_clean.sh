@@ -9,7 +9,8 @@ logdest="/home/kepler/logs/retention.log"
 logsrc="/home/kepler/logs"
 trashsource1="/media/backup_main/plex_library/plex_library_trash"
 trashsource2="/media/backup_main/gkserver_home/gkserver_home_trash"
-trashsource3="/media/backup_main/docker-data/docker-data_trash/$(date +%m-%d-%Y)"
+#trashsource3="/media/backup_main/docker-data/docker-data_trash/$(date +%m-%d-%Y)"
+trashsource3="/media/backup_main/docker-data/docker-data_trash"
 trashsource4="/media/backup_main/cctv/"
 
 echo $(date) >> $logdest
