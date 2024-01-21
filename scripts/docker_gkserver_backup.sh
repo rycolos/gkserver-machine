@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#SET DIRECTORIES
 logdest="/home/kepler/logs/docker_gkserver_backup.log"
 src1="/home/kepler/gkserver/docker-data"
 dest1="/media/backup_main/docker-data"

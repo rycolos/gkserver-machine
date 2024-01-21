@@ -1,8 +1,10 @@
 #!/bin/bash
 
+#SET RETENTION PERIODS
 days=30
 days2=60
 
+#SET DIRECTORIES
 logdest="/home/kepler/logs/retention.log"
 logsrc="/home/kepler/logs"
 trashsource1="/media/backup_main/plex_library/plex_library_trash"

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#SET DIRECTORIES
 logdest="/home/kepler/logs/home_gkserver_backup.log"
 src1="/home/kepler"
 dest1="/media/backup_main/gkserver_home"
