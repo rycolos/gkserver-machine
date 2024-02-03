@@ -12,7 +12,7 @@ services:
     privileged: true
 
   homebridge:
-    image: oznu/homebridge:ubuntu
+    image: homebridge/homebridge:ubuntu
     container_name: homebridge
     restart: always
     network_mode: host
