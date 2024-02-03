@@ -2,6 +2,7 @@
 
 #SET DIRECTORIES
 logdest="/home/kepler/logs/docker_gkserver_backup.log"
+dockerdir="/home/kepler/gkserver/docker-compose"
 src1="/home/kepler/gkserver/docker-data"
 vol1="/media/backup_main"
 dest1="$vol1/docker-data"
@@ -19,22 +20,12 @@ else
 fi
 
 #stop docker
-/usr/bin/docker compose \
-    -f /home/kepler/gkserver/docker-compose/etc__docker-compose.yml \
-    -f /home/kepler/gkserver/docker-compose/home__docker-compose.yml \
-    -f /home/kepler/gkserver/docker-compose/media__docker-compose.yml \
-    -f /home/kepler/gkserver/docker-compose/network__docker-compose.yml \
-    stop
+/usr/bin/docker compose -f $dockerdir/docker-compose.yml stop
 
 rsync -avhi --delete --backup-dir=$trashdir $src1 $dest1 2>&1| tee -a $logdest
 
 #start docker
-/usr/bin/docker compose \
-    -f /home/kepler/gkserver/docker-compose/etc__docker-compose.yml \
-    -f /home/kepler/gkserver/docker-compose/home__docker-compose.yml \
-    -f /home/kepler/gkserver/docker-compose/media__docker-compose.yml \
-    -f /home/kepler/gkserver/docker-compose/network__docker-compose.yml \
-    start
+/usr/bin/docker compose -f $dockerdir/docker-compose.yml start
 
 echo "" >> $logdest
 echo $(date) >> $logdest

@@ -5,34 +5,7 @@ volumes:
     driver: local
 
 services:
-  speedtest:
-    container_name: speedtest
-    image: henrywhitaker3/speedtest-tracker
-    ports:
-      - '8765:80'
-    volumes:
-      - "${DATA_DIR}/speedtest/config:/config"
-    environment:
-      TZ: 'America/New_York'
-      OOKLA_EULA_GDPR: 'true'
-    logging:
-      driver: "json-file"
-      options:
-        max-file: "10"
-        max-size: "200k"
-    restart: unless-stopped
-
-  portainer:
-    image: portainer/portainer-ce:alpine
-    container_name: portainer
-    command: -H unix:///var/run/docker.sock
-    ports:
-      - "9000:9000"
-    volumes:
-      - "/var/run/docker.sock:/var/run/docker.sock"
-      - "${DATA_DIR}/portainer_data:/data"
-    restart: always
-
+###NETWORK
   pihole:
     container_name: pihole
     image: pihole/pihole:latest
@@ -51,7 +24,25 @@ services:
       - '${DATA_DIR}/etc-pihole:/etc/pihole'
       - '${DATA_DIR}/etc-dnsmasq.d:/etc/dnsmasq.d'
     restart: unless-stopped
+  
+  speedtest:
+    container_name: speedtest
+    image: henrywhitaker3/speedtest-tracker
+    ports:
+      - '8765:80'
+    volumes:
+      - "${DATA_DIR}/speedtest/config:/config"
+    environment:
+      TZ: 'America/New_York'
+      OOKLA_EULA_GDPR: 'true'
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "10"
+        max-size: "200k"
+    restart: unless-stopped
 
+###MEDIA
   plex:
     image: linuxserver/plex:latest
     container_name: plex
@@ -68,14 +59,7 @@ services:
       - /media/plex_library/movies/:/movies
     restart: unless-stopped
 
-  nginx:
-    image: nginx:latest
-    container_name: nginx-server
-    ports:
-    - "18080:80"
-    volumes:
-    - ${DATA_DIR}/nginx/website:/usr/share/nginx/html
-
+###HOME
   homeassistant:
     container_name: homeassistant
     image: "ghcr.io/home-assistant/home-assistant:stable"
@@ -87,7 +71,7 @@ services:
     privileged: true
 
   homebridge:
-    image: oznu/homebridge:ubuntu
+    image: homebridge/homebridge:ubuntu
     container_name: homebridge
     restart: always
     network_mode: host
@@ -96,3 +80,29 @@ services:
       - HOMEBRIDGE_CONFIG_UI=1
     volumes:
       - ${DATA_DIR}/homebridge:/homebridge
+
+###ETC
+  nginx:
+    image: nginx:latest
+    container_name: nginx-server
+    ports:
+    - "18080:80"
+    volumes:
+    - ${DATA_DIR}/nginx/website:/usr/share/nginx/html
+
+  portainer:
+    image: portainer/portainer-ce:alpine
+    container_name: portainer
+    command: -H unix:///var/run/docker.sock
+    ports:
+      - "9000:9000"
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+      - "${DATA_DIR}/portainer_data:/data"
+    restart: always
+
+
+
+
+
+
