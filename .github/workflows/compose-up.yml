@@ -6,7 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'docker-compose/*__docker-compose.yml'
+      - 'docker-compose/docker-compose.yml'
 
 jobs:
   compose:
@@ -15,9 +15,4 @@ jobs:
       - name: up
         run: |
           cd ~/gkserver/docker-compose
-          docker compose \
-          -f etc__docker-compose.yml \
-          -f home__docker-compose.yml \
-          -f media__docker-compose.yml \
-          -f network__docker-compose.yml \
-          up -d --remove-orphans
+          docker compose up -d --remove-orphans
