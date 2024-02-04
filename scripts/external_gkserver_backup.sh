@@ -10,6 +10,14 @@ trashdir="$vol1/gkserver_backup_trash/$(date +%m-%d-%Y)"
 echo $(date) >> $logdest
 echo "" >> $logdest
 
+#verify src1 is mounted, exit if not
+if grep -qs $src1 /proc/mounts; then
+    echo "$src1 mounted" >> $logdest
+else
+    echo "$src1 not mounted" >> $logdest
+    exit 1
+fi
+
 #verify vol1 is mounted, exit if not
 if grep -qs $vol1 /proc/mounts; then
     echo "$vol1 mounted" >> $logdest
