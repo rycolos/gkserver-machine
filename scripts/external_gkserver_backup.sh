@@ -3,7 +3,7 @@
 #SET DIRECTORIES
 logdest="/home/kepler/logs/external_gkserver_backup.log"
 src1="/media/backup_main"
-vol1="/media/backup2_ext"
+vol1="/media/backup3_ext"
 dest1="$vol1"
 trashdir="$vol1/gkserver_backup_trash/$(date +%m-%d-%Y)"
 
