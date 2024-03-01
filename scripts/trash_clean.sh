@@ -23,7 +23,7 @@ else
 fi
 
 #prune logs after 30d
-find $logsrc -mtime +$days -delete -print 2>&1 | tee -a $logdest
+find $logsrc -name "*.log" -mtime +$days -delete -print 2>&1 | tee -a $logdest
 
 #prune backup_trash folders after 30d
 find $trashsource1 -maxdepth 1 -mindepth 1 -mtime +$days -type d -exec rm -rv {} + -print 2>&1 | tee -a $logdest
