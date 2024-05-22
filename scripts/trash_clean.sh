@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SET RETENTION PERIODS
-days=30
+days=14
 
 #SET DIRECTORIES
 logdest="/home/kepler/logs/retention.log"
