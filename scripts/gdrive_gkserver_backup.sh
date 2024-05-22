@@ -23,22 +23,22 @@ echo "" >> $logdest
 #backup docs
 rclone sync $src1 $dest1 \
 --config=$config \
---progress --delete-excluded --backup-dir $trashdir 2>&1 | tee -a $logdest
+--progress --delete-excluded --backup-dir $trashdir 2>&1 | tee $logdest
 
 #home dir
 rclone sync $src2 $dest2 \
 --config=$config \
---progress --delete-excluded --backup-dir $trashdir --exclude=".ssh/**" 2>&1 | tee -a $logdest
+--progress --delete-excluded --backup-dir $trashdir --exclude=".ssh/**" 2>&1 | tee $logdest
 
 #plex library (music only)
 rclone sync $src3 $dest3 \
 --config=$config \
---progress --backup-dir $trashdir 2>&1 | tee -a $logdest
+--progress --backup-dir $trashdir 2>&1 | tee $logdest
 
 #docker data
 rclone sync $src4 $dest4 \
 --config=$config \
---progress --backup-dir $trashdir 2>&1 | tee -a $logdest
+--progress --backup-dir $trashdir 2>&1 | tee $logdest
 
 #ryan mba
 # rclone sync $src5 $dest5 \
