@@ -11,6 +11,10 @@ src3="/media/plex_library/music/"
 dest3="gdrive:backup_gkserver/plex_library/"
 src4="/media/backup_main/docker-data/"
 dest4="gdrive:backup_gkserver/docker_data/"
+src5="/media/backup_main/ryan_mba_user/"
+dest5="gdrive:backup_gkserver/ryan_mba_user/"
+src6="/media/backup_main/ryan_gaming_music_working_on/"
+dest6="gdrive:backup_gkserver/ryan_gaming_music_working_on/"
 trashdir="gdrive:/rclone_trash/$(date +%m-%d-%Y)"
 
 echo $(date) >> $logdest
@@ -33,6 +37,16 @@ rclone sync $src3 $dest3 \
 
 #docker data
 rclone sync $src4 $dest4 \
+--config=$config \
+--progress --backup-dir $trashdir 2>&1 | tee -a $logdest
+
+#ryan mba
+rclone sync $src5 $dest5 \
+--config=$config \
+--progress --backup-dir $trashdir 2>&1 | tee -a $logdest
+
+#gamingpc - music working on
+rclone sync $src6 $dest6 \
 --config=$config \
 --progress --backup-dir $trashdir 2>&1 | tee -a $logdest
 
