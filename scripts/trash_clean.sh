@@ -23,12 +23,12 @@ else
 fi
 
 #prune logs after 30d
-find $logsrc -name "*.log" -mtime +$days -delete -print 2>&1 | tee -a $logdest
+find $logsrc -name "*.log" -mtime +$days -delete -print 2>&1 | tee $logdest
 
 #prune backup_trash folders after 30d
-find $trashsource1 -maxdepth 1 -mindepth 1 -mtime +$days -type d -exec rm -rv {} + -print 2>&1 | tee -a $logdest
-find $trashsource2 -maxdepth 1 -mindepth 1 -mtime +$days -type d -exec rm -rv {} + -print 2>&1 | tee -a $logdest
-find $trashsource3 -maxdepth 1 -mindepth 1 -mtime +$days -type d -exec rm -rv {} + -print 2>&1 | tee -a $logdest
+find $trashsource1 -maxdepth 1 -mindepth 1 -mtime +$days -type d -exec rm -rv {} + -print 2>&1 | tee $logdest
+find $trashsource2 -maxdepth 1 -mindepth 1 -mtime +$days -type d -exec rm -rv {} + -print 2>&1 | tee $logdest
+find $trashsource3 -maxdepth 1 -mindepth 1 -mtime +$days -type d -exec rm -rv {} + -print 2>&1 | tee $logdest
 
 echo "" >> $logdest
 echo $(date) >> $logdest
