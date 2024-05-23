@@ -22,7 +22,7 @@ fi
 #stop docker
 /usr/bin/docker compose -f $dockerdir/docker-compose.yml stop
 
-rsync -avhi --delete --backup-dir=$trashdir $src1 $dest1 2>&1| tee -a $logdest
+rsync -avhi --delete --backup-dir=$trashdir $src1 $dest1 2>&1| tee $logdest
 
 #start docker
 /usr/bin/docker compose -f $dockerdir/docker-compose.yml start

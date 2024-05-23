@@ -19,7 +19,7 @@ else
 fi
 
 rsync -avhi --delete --backup-dir=$trashdir \
-$src1 $dest1 2>&1 | tee -a $logdest
+$src1 $dest1 2>&1 | tee $logdest
 
 echo "" >> $logdest
 echo $(date) >> $logdest

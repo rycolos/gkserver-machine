@@ -28,7 +28,7 @@ fi
 
 rsync -avhi --delete --no-perms --no-group --no-owner \
 --backup-dir=$trashdir \
-$src1 $dest1 2>&1 | tee -a $logdest
+$src1 $dest1 2>&1 | tee $logdest
 
 echo "" >> $logdest
 echo $(date) >> $logdest
