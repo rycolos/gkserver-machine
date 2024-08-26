@@ -1,5 +1,3 @@
-version: "3.8"
-
 volumes:
   portainer_data:
     driver: local
@@ -66,15 +64,12 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=America/New_York
-      #- JELLYFIN_PublishedServerUrl=192.168.0.5 #optional
     volumes:
       - /media/jellyfin/:/config
       - /media/plex_library/tv/:/data/tvshows
       - /media/plex_library/movies/:/data/movies
     ports:
       - 8096:8096
-      # - 7359:7359/udp #optional
-      # - 1900:1900/udp #optional
     restart: unless-stopped
 
 ###HOME
