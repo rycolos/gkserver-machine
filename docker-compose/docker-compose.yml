@@ -80,7 +80,7 @@ services:
     volumes:
       - ${DATA_DIR}/homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
-      - /host:/:ro
+      - /:/host:ro
     restart: unless-stopped
     privileged: true
 
