@@ -14,10 +14,11 @@ Machine should be initialized with `init_gkserver` [ansible playbook](https://gi
 
 Additional tasks required:
 * Install self-hosted runner for Github Actions and create service [1](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/adding-self-hosted-runners), [2](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service)
-* Transfer existing Docker data `docker-data` (if desired)
+* Transfer existing Docker data `docker-data` (as desired, per container)
 * Create `.env` in `docker-compose`
 * Configure and harden ssh
 * Mount HDDs and edit fstab
+* Configure syncthing
 * Install rclone and configure
-* Install syncthing and configure
 * Install CyberPower PowerPanel and configure
+* Uncomment backup cronjobs
