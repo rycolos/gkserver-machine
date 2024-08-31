@@ -10,15 +10,26 @@ Assumes .env file is present in `docker-compose` directory.
 Package and Docker container updates are manually made using `updates` [ansible playbook](https://github.com/rycolos/gklab-ansible/tree/main).
 
 ## Initialization of new gkserver instance
+Create DHCP reservation for ethernet-connected machine.
+
+Key-based ssh authentication should be set up and `/etc/ssh/sshd_config` settings updated:
+```
+ClientAliveInterval 120
+ClientAliveCountMax 720
+PasswordAuthentication no
+PermitEmptyPasswords no
+PermitRootLogin no
+```
+
 Machine should be initialized with `init_gkserver` [ansible playbook](https://github.com/rycolos/gklab-ansible), which will clone this repo as a step. 
 
 Additional tasks required:
 * Install self-hosted runner for Github Actions and create service [1](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/adding-self-hosted-runners), [2](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service)
 * Transfer existing Docker data `docker-data` (as desired, per container)
-* Create `.env` in `docker-compose`
-* Configure and harden ssh
+* Create and update `.env` in `docker-compose`, per `.env.template`
 * Mount HDDs and edit fstab
 * Configure syncthing
 * Install rclone and configure
 * Install CyberPower PowerPanel and configure
-* Uncomment backup cronjobs
+* Uncomment backup cronjobs when ready
+* Docker compose up
