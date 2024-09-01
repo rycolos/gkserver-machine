@@ -51,10 +51,10 @@ services:
       - PGID=1000
       - VERSION=docker
     volumes:
-      - /media/plex_library/:/config
-      - /media/plex_library/music/:/music
-      - /media/plex_library/tv/:/tv
-      - /media/plex_library/movies/:/movies
+      - ${DATA_DIR}/plex/:/config
+      - /media/media_library/music/:/music
+      - /media/media_library/tv/:/tv
+      - /media/media_library/movies/:/movies
     restart: unless-stopped
 
   jellyfin:
@@ -65,9 +65,9 @@ services:
       - PGID=1000
       - TZ=America/New_York
     volumes:
-      - /media/jellyfin/:/config
-      - /media/plex_library/tv/:/data/tvshows
-      - /media/plex_library/movies/:/data/movies
+      - ${DATA_DIR}/jellyfin/:/config
+      - /media/media_library/tv/:/data/tvshows
+      - /media/media_library/movies/:/data/movies
     ports:
       - 8096:8096
     restart: unless-stopped
