@@ -30,7 +30,7 @@ Additional tasks required:
 * Mount HDDs and edit `fstab` for auto-mount
 * Configure Syncthing
 * Configure Rclone with `rclone config`
-* Install [CyberPower PowerPanel](https://www.cyberpowersystems.com/product/software/power-panel-personal/powerpanel-for-linux/) and configure
+* Configure [CyberPower PowerPanel](https://www.cyberpowersystems.com/product/software/power-panel-personal/powerpanel-for-linux/)
 * Uncomment backup cronjobs when ready
 * Docker compose up
 
