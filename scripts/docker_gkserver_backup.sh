@@ -1,13 +1,16 @@
 #!/bin/bash
 
 #SET DIRECTORIES
-logdest="/home/kepler/logs/docker_gkserver_backup.log"
-dockerdir="/home/kepler/gkserver/docker-compose"
-src1="/home/kepler/gkserver/docker-data"
+user="kepler"
+logdir="/home/$user/logs"
+logdest="/home/$user/logs/docker_gkserver_backup.log"
+dockerdir="/home/$user/gkserver/docker-compose"
+src1="/home/$user/gkserver/docker-data"
 vol1="/media/backup_main"
 dest1="$vol1/docker-data"
 trashdir="$vol1/docker-data/docker-data_trash/$(date +%m-%d-%Y)"
 
+mkdir -p $logdir
 echo $(date) >> $logdest
 echo "" >> $logdest
 

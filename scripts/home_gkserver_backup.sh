@@ -1,8 +1,10 @@
 #!/bin/bash
 
 #SET DIRECTORIES
-logdest="/home/kepler/logs/home_gkserver_backup.log"
-src1="/home/kepler"
+user="kepler"
+logdir="/home/$user/logs"
+logdest="/home/$user/logs/home_gkserver_backup.log"
+src1="/home/$user"
 vol1="/media/backup_main"
 dest1="$vol1/gkserver_home"
 exclude1="gkserver" #relative path

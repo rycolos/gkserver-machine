@@ -4,8 +4,10 @@
 days=14
 
 #SET DIRECTORIES
-logdest="/home/kepler/logs/retention.log"
-logsrc="/home/kepler/logs"
+user="kepler"
+logdir="/home/$user/logs"
+logdest="/home/$user/logs/retention.log"
+logsrc="/home/$user/logs"
 vol1="/media/backup_main"
 trashsource1="$vol1/plex_library/plex_library_trash"
 trashsource2="$vol1/gkserver_home/gkserver_home_trash"

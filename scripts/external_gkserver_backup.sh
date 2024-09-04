@@ -1,7 +1,9 @@
 #!/bin/bash
 
 #SET DIRECTORIES
-logdest="/home/kepler/logs/external_gkserver_backup.log"
+user="kepler"
+logdir="/home/$user/logs"
+logdest="/home/$user/logs/external_gkserver_backup.log"
 src1="/media/backup_main"
 vol1="/media/backup3_ext"
 dest1="$vol1"

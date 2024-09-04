@@ -1,7 +1,9 @@
 #!/bin/bash
 
 #SET DIRECTORIES
-logdest="/home/kepler/logs/plex_gkserver_backup.log"
+user="kepler"
+logdir="/home/$user/logs"
+logdest="/home/$user/logs/plex_gkserver_backup.log"
 src1="/media/plex_library"
 vol1="/media/backup_main"
 dest1="$vol1/plex_library"

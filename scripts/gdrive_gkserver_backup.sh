@@ -1,8 +1,10 @@
 #!/bin/bash
 
 #SET DIRECTORIES
-logdest="/home/kepler/logs/gdrive_gkserver_backup.log"
-config="/home/kepler/.config/rclone/rclone.conf"
+user="kepler"
+logdir="/home/$user/logs"
+logdest="/home/$user/logs/gdrive_gkserver_backup.log"
+config="/home/$user/.config/rclone/rclone.conf"
 src1="/media/backup_main/documents/"
 dest1="gdrive:backup_gkserver/documents/"
 src2="/media/backup_main/gkserver_home/"
