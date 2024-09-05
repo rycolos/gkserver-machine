@@ -2,22 +2,26 @@
 
 #SET DIRECTORIES
 user="kepler"
+remote="gdrive"
+
 logdir="/home/$user/logs"
 logdest="/home/$user/logs/gdrive_gkserver_backup.log"
 config="/home/$user/.config/rclone/rclone.conf"
+
 src1="/media/backup_main/documents/"
-dest1="gdrive:backup_gkserver/documents/"
+dest1="$remote:backup_gkserver/documents/"
 src2="/media/backup_main/gkserver_home/"
-dest2="gdrive:backup_gkserver/home/"
-# src3="/media/media_library/music/"
-# dest3="gdrive:backup_gkserver/plex_library/"
+dest2="$remote:backup_gkserver/home/"
+src3="/media/media_library/music/"
+dest3="$remote:backup_gkserver/music/"
 src4="/media/backup_main/docker-data/"
-dest4="gdrive:backup_gkserver/docker_data/"
+dest4="$remote:backup_gkserver/docker_data/"
 # src5="/media/backup_main/ryan_mba_user/"
-# dest5="gdrive:backup_gkserver/ryan_mba_user/"
+# dest5="$remote:backup_gkserver/ryan_mba_user/"
 src6="/media/backup_main/ryan_gaming_music_working_on/"
-dest6="gdrive:backup_gkserver/ryan_gaming_music_working_on/"
-trashdir="gdrive:/rclone_trash/$(date +%m-%d-%Y)"
+dest6="$remote:backup_gkserver/ryan_gaming_music_working_on/"
+
+trashdir="$remote:/rclone_trash/$(date +%m-%d-%Y)"
 
 echo $(date) >> $logdest
 echo "" >> $logdest
