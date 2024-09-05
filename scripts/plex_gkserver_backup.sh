@@ -4,10 +4,10 @@
 user="kepler"
 logdir="/home/$user/logs"
 logdest="/home/$user/logs/plex_gkserver_backup.log"
-src1="/media/plex_library"
+src1="/media/media_library"
 vol1="/media/backup_main"
-dest1="$vol1/plex_library"
-trashdir="$vol1/plex_library/plex_library_trash/$(date +%m-%d-%Y)"
+dest1="$vol1/media_library"
+trashdir="$vol1/media_library/media_library_trash/$(date +%m-%d-%Y)"
 
 echo $(date) >> $logdest
 echo "" >> $logdest
