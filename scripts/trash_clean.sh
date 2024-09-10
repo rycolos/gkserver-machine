@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #SET RETENTION PERIODS
-days=14
+days=7
 
 #SET DIRECTORIES
 user="kepler"
@@ -9,9 +9,9 @@ logdir="/home/$user/logs"
 logdest="/home/$user/logs/retention.log"
 logsrc="/home/$user/logs"
 vol1="/media/backup_main"
-trashsource1="$vol1/plex_library/plex_library_trash"
-trashsource2="$vol1/gkserver_home/gkserver_home_trash"
-trashsource3="$vol1/docker-data/docker-data_trash"
+
+trashsource1="$vol1/media_library/media_library_trash"
+trashsource2="$vol1/docker-data/docker-data_trash"
 
 echo $(date) >> $logdest
 echo "" >> $logdest
@@ -30,7 +30,6 @@ find $logsrc -name "*.log" -mtime +$days -delete -print 2>&1 | tee $logdest
 #prune backup_trash folders after 30d
 find $trashsource1 -maxdepth 1 -mindepth 1 -mtime +$days -type d -exec rm -rv {} + -print 2>&1 | tee $logdest
 find $trashsource2 -maxdepth 1 -mindepth 1 -mtime +$days -type d -exec rm -rv {} + -print 2>&1 | tee $logdest
-find $trashsource3 -maxdepth 1 -mindepth 1 -mtime +$days -type d -exec rm -rv {} + -print 2>&1 | tee $logdest
 
 echo "" >> $logdest
 echo $(date) >> $logdest
