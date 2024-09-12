@@ -1,61 +1,50 @@
 #!/bin/bash
 
-#SET DIRECTORIES
-user="kepler"
-remote="gdrive"
+#CONFIG
+user="ryan"
+
+mnt1="/mnt/backup_int1"
+mnt2="/mnt/syncthing"
+mnt3="/mnt/media_library"
+remote="b2:/gkserver-backup"
 
 logdir="/home/$user/logs"
-logdest="/home/$user/logs/gdrive_gkserver_backup.log"
+logdest="b2_gkserver_backup.log"
+
 config="/home/$user/.config/rclone/rclone.conf"
 
-src1="/media/backup_main/documents/"
-dest1="$remote:backup_gkserver/documents/"
-src2="/media/backup_main/gkserver_home/"
-dest2="$remote:backup_gkserver/home/"
-src3="/media/media_library/music/"
-dest3="$remote:backup_gkserver/music/"
-src4="/media/backup_main/docker-data/"
-dest4="$remote:backup_gkserver/docker_data/"
-# src5="/media/backup_main/ryan_mba_user/"
-# dest5="$remote:backup_gkserver/ryan_mba_user/"
-src6="/media/backup_main/ryan_gaming_music_working_on/"
-dest6="$remote:backup_gkserver/ryan_gaming_music_working_on/"
+#SETUP LOGS
+mkdir -p $logdir
+echo $(date) >> $logdir/$logdest
+echo "" >> $logdir/$logdest
 
-trashdir="$remote:/rclone_trash/$(date +%m-%d-%Y)"
-
-echo $(date) >> $logdest
-echo "" >> $logdest
-
-#backup docs
-rclone sync $src1 $dest1 \
+#SYNC
+    #docker-data
+rclone sync $mnt1/docker_data $remote:/docker_data \
 --config=$config \
---progress --delete-excluded --backup-dir $trashdir 2>&1 | tee $logdest
+--fast-list --progress --transfers 20 2>&1 | tee $logdir/$logdest
 
-#home dir
-rclone sync $src2 $dest2 \
+    #other-backups
+rclone sync $mnt1/other_backups $remote:/other_backups \
 --config=$config \
---progress --delete-excluded --backup-dir $trashdir --exclude=".ssh/**" 2>&1 | tee $logdest
+--fast-list --progress --transfers 20 2>&1 | tee $logdir/$logdest
 
-#plex library (music only)
-rclone sync $src3 $dest3 \
+    #archives
+rclone sync $mnt1/archives $remote:/archives \
 --config=$config \
---progress --backup-dir $trashdir 2>&1 | tee $logdest
+--fast-list --progress --transfers 20 2>&1 | tee $logdir/$logdest
 
-#docker data
-rclone sync $src4 $dest4 \
+    #syncthing
+rclone sync $mnt2/ $remote:/syncthing \
 --config=$config \
---progress --backup-dir $trashdir 2>&1 | tee $logdest
+--fast-list --progress --transfers 20 2>&1 | tee $logdir/$logdest
 
-#ryan mba
-# rclone sync $src5 $dest5 \
-# --config=$config \
-# --progress --backup-dir $trashdir 2>&1 | tee $logdest
-
-#gamingpc - music working on
-rclone sync $src6 $dest6 \
+    #media/music
+rclone sync $mnt3/music $remote:/media_library/music \
 --config=$config \
---progress --backup-dir $trashdir 2>&1 | tee $logdest
+--fast-list --progress --transfers 20 2>&1 | tee $logdir/$logdest
 
-echo "" >> $logdest
-echo $(date) >> $logdest
-echo "----------" >> $logdest
+#FINALIZE LOGS
+echo "" >> $logdir/$logdest
+echo $(date) >> $logdir/$logdest
+echo "----------" >> $logdir/$logdest

@@ -1,28 +1,34 @@
 #!/bin/bash
 
 #SET DIRECTORIES
-user="kepler"
-logdir="/home/$user/logs"
-logdest="/home/$user/logs/plex_gkserver_backup.log"
-src1="/media/media_library"
-vol1="/media/backup_main"
-dest1="$vol1/media_library"
-trashdir="$vol1/media_library/media_library_trash/$(date +%m-%d-%Y)"
+user="ryan"
 
-echo $(date) >> $logdest
-echo "" >> $logdest
+logdir="/home/$user/logs"
+logdest="plex_gkserver_backup.log"
+
+src1="/mnt/media_library"
+backup_vol="/mnt/backup_int1"
+dest1="$backup_vol/media_library"
+trashdir="$backup_vol/media_library/media_library_trash/$(date +%m-%d-%Y)"
+
+#SETUP LOGS
+mkdir -p $logdir
+echo $(date) >> $logdir/$logdest
+echo "" >> $logdir/$logdest
 
 #verify vol1 is mounted, exit if not
-if grep -qs $vol1 /proc/mounts; then
-    echo "$vol1 mounted" >> $logdest
+if grep -qs $backup_vol /proc/mounts; then
+    echo "$backup_vol mounted" >> $logdir/$logdest
 else
-    echo "$vol1 not mounted" >> $logdest
+    echo "$backup_vol not mounted" >> $logdir/$logdest
     exit 1
 fi
 
+#SYNC
 rsync -avhi --delete --backup-dir=$trashdir \
-$src1 $dest1 2>&1 | tee $logdest
+$src1 $dest1 2>&1 | tee $logdir/$logdest
 
-echo "" >> $logdest
-echo $(date) >> $logdest
-echo "----------" >> $logdest
+#FINALIZE LOGS
+echo "" >> $logdir/$logdest
+echo $(date) >> $logdir/$logdest
+echo "----------" >> $logdir/$logdest

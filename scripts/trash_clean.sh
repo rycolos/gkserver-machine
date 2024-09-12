@@ -11,8 +11,9 @@ logsrc="/home/$user/logs"
 vol1="/media/backup_main"
 
 trashsource1="$vol1/media_library/media_library_trash"
-trashsource2="$vol1/docker-data/docker-data_trash"
+trashsource2="$vol1/docker_data/docker_data_trash"
 
+mkdir -p $logdir
 echo $(date) >> $logdest
 echo "" >> $logdest
 

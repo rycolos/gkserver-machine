@@ -28,7 +28,7 @@ Additional manual tasks required:
 * Transfer existing Docker data `docker-data` (as desired, per container)
 * Create and update `.env` in `docker-compose`, per `.env.template`
 * Mount HDDs and edit `fstab` for auto-mount
-* Configure Syncthing
+* Configure Syncthing. Update listening address in `<gui>` block in `$HOME/.local/state/syncthing` to `0.0.0.0:8384`
 * Configure Rclone with `rclone config`
 * Configure [CyberPower PowerPanel](https://www.cyberpowersystems.com/product/software/power-panel-personal/powerpanel-for-linux/)
 * Uncomment backup cronjobs when ready
