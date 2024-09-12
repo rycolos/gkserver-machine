@@ -25,7 +25,7 @@ Machine should be initialized with `init_gkserver` [ansible playbook](https://gi
 
 Additional manual tasks required:
 * Install self-hosted runner for Github Actions and create service [1](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/adding-self-hosted-runners), [2](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/configuring-the-self-hosted-runner-application-as-a-service)
-* Transfer existing Docker data `docker-data` (as desired, per container)
+* Transfer existing Docker data to `~/gkserver/docker_data` (as desired, per container)
 * Create and update `.env` in `docker-compose`, per `.env.template`
 * Mount HDDs and edit `fstab` for auto-mount
 * Configure Syncthing. Update listening address in `<gui>` block in `$HOME/.local/state/syncthing` to `0.0.0.0:8384`
