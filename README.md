@@ -34,6 +34,7 @@ Additional manual tasks required:
 * Uncomment backup cronjobs when ready
 * Docker compose up
 
+### Benchmarking
 Optionally, run compute benchmarks with Geekbench6:
 ```
 wget https://cdn.geekbench.com/Geekbench-6.2.1-Linux.tar.gz
@@ -42,6 +43,7 @@ cd Geekbench-6.2.1-Linux
 ./geekbench6
 ```
 
+### Disk Diagnostics
 Optionally, if installing new HDD, scan for errors with `smartctl`:
 ```
 #Run short test
@@ -61,3 +63,19 @@ sudo smartctl -H /dev/sdX
 ```
 
 Verify that fields `Reallocated_Sector_Ct`, `Current_Pending_Sector`, and `Offline_Uncorrectable` have a `RAW_VALUE` of 0.
+
+### Format/Partition New Drives
+Optionally, for formatting and partitioning new disks:
+```
+sudo parted /dev/sdX mklabel gpt
+sudo parted -a opt /dev/sdX mkpart primary ext4 0% 100%
+sudo mkfs.ext4 /dev/sdX1
+```
+
+Add to `/etc/fstab`
+```
+#E.g., 
+#UUID=4b313333-a7b5-48c1-a957-d77d637e4fda /mnt/data ext4 defaults 0 2
+```
+
+

@@ -16,7 +16,7 @@ services:
       WEBPASSWORD: '${PIHOLE_PW}'
       DNSMASQ_LISTENING: 'all'
       PIHOLE_DNS_: '9.9.9.9;149.112.112.112' #quad9
-      FTLCONF_LOCAL_IPV4: '192.168.1.87'
+      FTLCONF_LOCAL_IPV4: '192.168.1.244'
       DNSSEC: 'true'
       FTLCONF_MAXDBDAYS: 180
     volumes:
@@ -53,9 +53,9 @@ services:
       - VERSION=docker
     volumes:
       - ${DATA_DIR}/plex/:/config
-      - /media/media_library/music/:/music
-      - /media/media_library/tv/:/tv
-      - /media/media_library/movies/:/movies
+      - ${MEDIA_DIR}/music/:/music
+      - ${MEDIA_DIR}/tv/:/tv
+      - ${MEDIA_DIR}/movies/:/movies
     restart: unless-stopped
 
   jellyfin:
@@ -67,8 +67,8 @@ services:
       - TZ=America/New_York
     volumes:
       - ${DATA_DIR}/jellyfin/:/config
-      - /media/media_library/tv/:/data/tvshows
-      - /media/media_library/movies/:/data/movies
+      - ${MEDIA_DIR}/tv/:/data/tvshows
+      - ${MEDIA_DIR}/movies/:/data/movies
     ports:
       - 8096:8096
     restart: unless-stopped
@@ -81,7 +81,7 @@ services:
     volumes:
       - ${DATA_DIR}/homeassistant:/config
       - /etc/localtime:/etc/localtime:ro
-      - /media/:/host:ro
+      - /mnt/:/host:ro
     restart: unless-stopped
     privileged: true
 
