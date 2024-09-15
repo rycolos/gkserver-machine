@@ -7,7 +7,7 @@ logdir="/home/$user/logs"
 logdest="docker_gkserver_backup.log"
 
 dockerdir="/home/$user/gkserver/docker-compose"
-src1="/home/$user/gkserver/docker_data"
+src1="/home/$user/gkserver/docker_data/"
 vol1="/mnt/backup_int1"
 dest1="$vol1/docker_data"
 trashdir="$vol1/docker_data/docker_data_trash/$(date +%m-%d-%Y)"
