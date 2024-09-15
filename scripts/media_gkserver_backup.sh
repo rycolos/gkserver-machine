@@ -4,9 +4,9 @@
 user="ryan"
 
 logdir="/home/$user/logs"
-logdest="plex_gkserver_backup.log"
+logdest="media_gkserver_backup.log"
 
-src1="/mnt/media_library"
+src1="/mnt/hdd1/"
 backup_vol="/mnt/backup_int1"
 dest1="$backup_vol/media_library"
 trashdir="$backup_vol/media_library/media_library_trash/$(date +%m-%d-%Y)"

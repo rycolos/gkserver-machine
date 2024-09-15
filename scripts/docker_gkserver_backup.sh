@@ -8,7 +8,7 @@ logdest="docker_gkserver_backup.log"
 
 dockerdir="/home/$user/gkserver/docker-compose"
 src1="/home/$user/gkserver/docker_data"
-vol1="/media/backup_main"
+vol1="/mnt/backup_int1"
 dest1="$vol1/docker_data"
 trashdir="$vol1/docker_data/docker_data_trash/$(date +%m-%d-%Y)"
 
@@ -29,7 +29,7 @@ fi
 /usr/bin/docker compose -f $dockerdir/docker-compose.yml stop
 
 #SYNC
-rsync -avhi --delete --backup-dir=$trashdir $src1 $dest1 2>&1| tee $logdir/$logdest
+rsync -avhi --delete --backup-dir=$trashdir $src1 $dest1 2>&1 | tee $logdir/$logdest
 
 #start docker
 /usr/bin/docker compose -f $dockerdir/docker-compose.yml start

@@ -33,9 +33,12 @@ else
 fi
 
 #SYNC
-rsync -avhi --delete --no-perms --no-group --no-owner \
+rsync -avhi --delete \
 --backup-dir=$trashdir \
 $src1 $dest1 2>&1 | tee $logdir/$logdest
+
+#CLEAN TRASH
+find $vol1/gkserver_backup_trash/ -maxdepth 1 -mindepth 1 -mtime +7 -type d -exec rm -rv {} + -print 2>&1 | tee $logdest
 
 #FINALIZE LOGS
 echo "" >> $logdir/$logdest
