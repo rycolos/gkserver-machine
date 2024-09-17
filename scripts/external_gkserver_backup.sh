@@ -6,8 +6,8 @@ user="ryan"
 logdir="/home/$user/logs"
 logdest="external_gkserver_backup.log"
 
-src1="/media/backup_main"
-vol1="/media/backup3_ext"
+src1="/mnt/backup_int1"
+vol1="/mnt/backup_ext1"
 dest1="$vol1"
 trashdir="$vol1/gkserver_backup_trash/$(date +%m-%d-%Y)"
 
