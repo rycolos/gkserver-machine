@@ -5,7 +5,6 @@ user="ryan"
 
 mnt1="/mnt/backup_int1"
 mnt2="/mnt/syncthing"
-mnt3="/mnt/media_library"
 remote="b2:/gkserver-backup"
 
 logdir="/home/$user/logs"
@@ -30,7 +29,12 @@ rclone sync $mnt1/other_backups $remote:/other_backups \
 --fast-list --progress --transfers 20 2>&1 | tee $logdir/$logdest
 
     #archives
-rclone sync $mnt1/archives $remote:/archives \
+rclone sync $mnt1/library_backup/archives $remote:/archives \
+--config=$config \
+--fast-list --progress --transfers 20 2>&1 | tee $logdir/$logdest
+
+    #music
+rclone sync $mnt1/library_backup/music $remote:/music \
 --config=$config \
 --fast-list --progress --transfers 20 2>&1 | tee $logdir/$logdest
 
@@ -39,10 +43,6 @@ rclone sync $mnt2/ $remote:/syncthing \
 --config=$config \
 --fast-list --progress --transfers 20 2>&1 | tee $logdir/$logdest
 
-    #media/music
-rclone sync $mnt3/music $remote:/media_library/music \
---config=$config \
---fast-list --progress --transfers 20 2>&1 | tee $logdir/$logdest
 
 #FINALIZE LOGS
 echo "" >> $logdir/$logdest
