@@ -4,13 +4,13 @@
 days=14
 
 #SET DIRECTORIES
-user="kepler"
+user="ryan"
 logdir="/home/$user/logs"
 logdest="/home/$user/logs/retention.log"
 logsrc="/home/$user/logs"
-vol1="/media/backup_main"
+vol1="/mnt/backup_int1"
 
-trashsource1="$vol1/media_library/media_library_trash"
+trashsource1="$vol1/backup_trash"
 trashsource2="$vol1/docker_data/docker_data_trash"
 
 mkdir -p $logdir
