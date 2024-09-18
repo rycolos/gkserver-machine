@@ -6,7 +6,7 @@ user="ryan"
 logdir="/home/$user/logs"
 logdest="media_gkserver_backup.log"
 
-src1="/mnt/hdd1"
+src1="/mnt/hdd1/"
 backup_vol="/mnt/backup_int1"
 dest1="$backup_vol"
 trashdir="$backup_vol/backup_trash/$(date +%m-%d-%Y)"
