@@ -12,7 +12,7 @@ logdest="retention.log"
 logsrc="/home/$user/logs"
 vol1="/mnt/backup_int1"
 
-trashsource1="$vol1/library_trash"
+trashsource1="$vol1/library_backup/library_trash"
 trashsource2="$vol1/docker_data/docker_data_trash"
 
 mkdir -p $logdir

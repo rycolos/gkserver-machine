@@ -38,7 +38,7 @@ rsync -avhi --delete \
 $src1 $dest1 2>&1 | tee $logdir/$logdest
 
 #CLEAN TRASH
-find $vol1/gkserver_backup_trash/ -maxdepth 1 -mindepth 1 -mtime +7 -type d -exec rm -rv {} + -print 2>&1 | tee $logdir/$logdest
+find $vol1/gkserver_backup_trash/ -maxdepth 1 -mindepth 1 -mtime +45 -type d -exec rm -rv {} + -print 2>&1 | tee $logdir/$logdest
 
 #FINALIZE LOGS
 echo "" >> $logdir/$logdest
