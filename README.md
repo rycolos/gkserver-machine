@@ -7,7 +7,9 @@ Github Actions used as CI/CD pipeline to perform a `git pull` on remote machine 
 Assumes repo is cloned into `~/gkserver`.
 Assumes .env file is present in `docker-compose` directory.
 
-Package and Docker container updates are manually made using [ansible playbooks](https://github.com/rycolos/gklab-ansible/tree/main).
+Package and Docker container updates are manually made using [ansible playbooks](https://github.com/rycolos/gklab-ansible/tree/main):
+* `update_sys__apt_docker` - For Debian-based systems with Docker. Pull any updated docker images, update and upgrade apt packages, reboot if required
+* `update_sys__apt` - For Debian-based systems without Docker. Update and upgrade apt packages, reboot if required
 
 ## Initialization of new gkserver instance
 Create DHCP reservation for ethernet-connected machine.
@@ -28,11 +30,12 @@ Additional manual tasks required:
 * Transfer existing Docker data to `~/gkserver/docker_data` (as desired, per container)
 * Create and update `.env` in `docker-compose`, per `.env.template`
 * Mount HDDs and edit `fstab` for auto-mount
+* Configure [MergerFS](https://github.com/trapexit/mergerfs/blob/master/README.md)
 * Configure Syncthing. Update listening address in `<gui>` block in `$HOME/.local/state/syncthing` to `0.0.0.0:8384`
-* Configure Rclone with `rclone config`
+* Configure Rclone with `rclone config` for Backblaze B2 cloud backups
 * Configure [CyberPower PowerPanel](https://www.cyberpowersystems.com/product/software/power-panel-personal/powerpanel-for-linux/)
 * Uncomment backup cronjobs when ready
-* Docker compose up
+* Docker compose up and verify services are running
 
 ### Benchmarking
 Optionally, run compute benchmarks with Geekbench6:
