@@ -34,6 +34,7 @@ Additional manual tasks required:
 * Configure Syncthing. Update listening address in `<gui>` block in `$HOME/.local/state/syncthing` to `0.0.0.0:8384`
 * Configure Rclone with `rclone config` for Backblaze B2 cloud backups
 * Configure [CyberPower PowerPanel](https://www.cyberpowersystems.com/product/software/power-panel-personal/powerpanel-for-linux/)
+    * `sudo pwrstat -lowbatt -runtime 300 -capacity 35 -shutdown on`, `sudo pwrstat -pwrfail -active off -shutdown off`, verify with `sudo pwrstat -config`   
 * Uncomment backup cronjobs when ready
 * Docker compose up and verify services are running
 
