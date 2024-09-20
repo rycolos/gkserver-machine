@@ -9,7 +9,7 @@ logdest="media_gkserver_backup.log"
 src1="/mnt/library_mfs/"
 backup_vol="/mnt/backup_int1"
 dest1="$backup_vol/library_backup"
-trashdir="$backup_vol/library_backup/library_trash/$(date +%m-%d-%Y)"
+trashdir="$dest1/library_trash/$(date +%m-%d-%Y)"
 
 #SETUP LOGS
 mkdir -p $logdir
