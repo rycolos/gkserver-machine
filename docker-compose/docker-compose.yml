@@ -73,13 +73,10 @@ services:
       - 8096:8096
     restart: unless-stopped
 
-version: '3.3'
-services:
-  kiwix-serve:
+  kiwix-server:
       ports:
         - 8181:8080
       image: ghcr.io/kiwix/kiwix-serve:latest
-      # uncomment next 4 lines to use it with local zim file in /tmp/zim
       volumes:
         - ${MEDIA_DIR}/wikipedia_zim:/data
       command:
