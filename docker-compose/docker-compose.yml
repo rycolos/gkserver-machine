@@ -74,13 +74,14 @@ services:
     restart: unless-stopped
 
   kiwix-server:
-      ports:
-        - 8181:8080
       image: ghcr.io/kiwix/kiwix-serve:latest
       volumes:
         - ${MEDIA_DIR}/wikipedia_zim:/data
+      ports:
+        - 8181:8080
       command:
         - '*.zim'
+      restart: unless-stopped
 
 ###HOME
   homeassistant:
