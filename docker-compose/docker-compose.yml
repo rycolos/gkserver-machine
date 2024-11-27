@@ -73,6 +73,18 @@ services:
       - 8096:8096
     restart: unless-stopped
 
+version: '3.3'
+services:
+  kiwix-serve:
+      ports:
+        - 8181:8080
+      image: ghcr.io/kiwix/kiwix-serve:latest
+      # uncomment next 4 lines to use it with local zim file in /tmp/zim
+      volumes:
+        - /mnt/library_mfs/wikipedia_zim:/data
+      command:
+        - '*.zim'
+
 ###HOME
   homeassistant:
     container_name: homeassistant
