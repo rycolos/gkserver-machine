@@ -73,7 +73,7 @@ services:
       - 8096:8096
     restart: unless-stopped
 
-  kiwix-server:
+  kiwix-wikipedia:
       image: ghcr.io/kiwix/kiwix-serve:latest
       volumes:
         - ${MEDIA_DIR}/wikipedia_zim:/data
