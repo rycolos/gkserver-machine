@@ -15,7 +15,7 @@ services:
       TZ: 'America/New_York'
       WEBPASSWORD: '${PIHOLE_PW}'
       DNSMASQ_LISTENING: 'all'
-      PIHOLE_DNS_: '9.9.9.9;149.112.112.112' #quad9
+      PIHOLE_DNS_: '1.1.1.1;1.0.0.1' #cloudflare
       FTLCONF_LOCAL_IPV4: '192.168.1.244'
       DNSSEC: 'true'
       FTLCONF_MAXDBDAYS: 180
