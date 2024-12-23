@@ -89,14 +89,13 @@ services:
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
+      - TZ=America/New_York
     volumes:
       - ${DATA_DIR}/emulatorjs/config:/config
-      - ${MEDIA_DIR}/roms:/data
+      - ${MEDIA_DIR}/roms/gb:/data/gb/roms
     ports:
       - 3000:3000
       - 1180:80
-      - 4001:4001 #optional
     restart: unless-stopped
 
 ###HOME
