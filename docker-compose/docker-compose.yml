@@ -97,6 +97,7 @@ services:
     ports:
       - 3000:3000
       - 1180:80
+      - 4001:4001 #optional
     restart: unless-stopped
 
 ###HOME
