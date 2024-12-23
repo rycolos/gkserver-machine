@@ -83,6 +83,22 @@ services:
         - '*.zim'
       restart: unless-stopped
 
+  emulatorjs:
+    image: lscr.io/linuxserver/emulatorjs:latest
+    container_name: emulatorjs
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - ${DATA_DIR}/emulatorjs/config:/config
+      - ${MEDIA_DIR}/roms:/data
+    ports:
+      - 3000:3000
+      - 1180:80
+      - 4001:4001 #optional
+    restart: unless-stopped
+
 ###HOME
   homeassistant:
     container_name: homeassistant
@@ -127,6 +143,7 @@ services:
     restart: always
 
   scrutiny:
+    # https://github.com/AnalogJ/scrutiny
     container_name: scrutiny
     image: ghcr.io/analogj/scrutiny:master-omnibus
     cap_add:
