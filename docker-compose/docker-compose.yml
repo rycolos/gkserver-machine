@@ -83,22 +83,22 @@ services:
         - '*.zim'
       restart: unless-stopped
 
-  emulatorjs:
-    image: lscr.io/linuxserver/emulatorjs:latest
-    container_name: emulatorjs
-    environment:
-      - PUID=0
-      - PGID=0
-      - TZ=America/New_York
-    volumes:
-      - ${DATA_DIR}/emulatorjs/config:/config
-      - ${DATA_DIR}/emulatorjs/data:/data
-      - ${MEDIA_DIR}/roms/gb:/data/gb/roms
-    ports:
-      - 3000:3000
-      - 1180:80
-      - 4001:4001 #optional
-    restart: unless-stopped
+  # emulatorjs:
+  #   image: lscr.io/linuxserver/emulatorjs:latest
+  #   container_name: emulatorjs
+  #   environment:
+  #     - PUID=0
+  #     - PGID=0
+  #     - TZ=America/New_York
+  #   volumes:
+  #     - ${DATA_DIR}/emulatorjs/config:/config
+  #     - ${DATA_DIR}/emulatorjs/data:/data
+  #     - ${MEDIA_DIR}/roms/gb:/data/gb/roms
+  #   ports:
+  #     - 3000:3000
+  #     - 1180:80
+  #     - 4001:4001 #optional
+  #   restart: unless-stopped
 
 ###HOME
   homeassistant:
