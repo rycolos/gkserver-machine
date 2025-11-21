@@ -162,7 +162,6 @@ services:
       - "/dev/sdc"
       - "/dev/sdd"
       - "/dev/sde"
-      - "/dev/sdf"
 
 
 
