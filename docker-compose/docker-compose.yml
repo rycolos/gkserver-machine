@@ -69,6 +69,7 @@ services:
       - ${DATA_DIR}/jellyfin/:/config
       - ${MEDIA_DIR}/tv/:/data/tvshows
       - ${MEDIA_DIR}/movies/:/data/movies
+      - ${MEDIA_DIR}/music/:/data/music
     ports:
       - 8096:8096
     restart: unless-stopped
